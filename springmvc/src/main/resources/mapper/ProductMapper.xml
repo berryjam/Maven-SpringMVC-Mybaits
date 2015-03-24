@@ -2,25 +2,20 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.springmvc.dao.ProductDAO">
+<mapper namespace="cn.springmvc.dao.ProductDao">
 	<resultMap id="productResultMap" type="cn.springmvc.model.Product">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="description" property="description" jdbcType="VARCHAR" />
 		<result column="price" property="price" jdbcType="DECIMAL" />
 	</resultMap>
 
-	<insert id="saveProduct" parameterType="Product" keyProperty="id">
-		insert
-		into products(
-		id,
-		description,
-		price)
-		values
-		(
-		#{id},
-		#{description},
-		#{price})
-	</insert>
+	<insert id="saveProduct" parameterType="Product" keyProperty="id"> 
+		insert into products( id, description, price) values ( #{id}, #{description}, 
+		#{price}) </insert>
+
+	<!-- <update id="saveProduct" parameterType="Product" keyProperty="id"> 
+		update products set description = '#{description}', price = '#{price}', id 
+		= "#{id}" </update> -->
 
 	<select id="getProductList" resultMap="productResultMap">
 		select * from products

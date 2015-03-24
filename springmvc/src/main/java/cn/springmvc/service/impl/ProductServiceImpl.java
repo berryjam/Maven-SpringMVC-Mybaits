@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.springmvc.dao.ProductDAO;
+import cn.springmvc.dao.ProductDao;
 import cn.springmvc.model.Product;
 import cn.springmvc.service.ProductService;
 
@@ -13,14 +13,14 @@ import cn.springmvc.service.ProductService;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
-	private ProductDAO productDAO;
+	private ProductDao productDao;
 
 	public List<Product> getProductList() {
-		return productDAO.getProductList();
+		return productDao.getProductList();
 	}
 
 	public void saveProduct(Product prod) {
-		productDAO.saveProduct(prod);
+		productDao.saveProduct(prod);
 	}
 
 }

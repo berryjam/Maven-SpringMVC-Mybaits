@@ -24,7 +24,7 @@ public class UserTest {
 	@Test
 	public void addUser() {
 		User user = new User();
-		user.setNickname("bbbbbb");
+		user.setNickname("ccccccc");
 		user.setState(2);
 		System.out.println(userService.insertUser(user));
 	}
