@@ -698,3 +698,4 @@ Caused by: java.lang.IllegalArgumentException
 2015-03-24 20:31:16 [ main:806 ] - [ ERROR ] maxIdle is deprecated
 2015-03-24 22:44:30 [ main:757 ] - [ ERROR ] maxIdle is deprecated
 2015-03-24 22:49:37 [ main:793 ] - [ ERROR ] maxIdle is deprecated
+2015-03-24 22:53:35 [ main:833 ] - [ ERROR ] maxIdle is deprecated
