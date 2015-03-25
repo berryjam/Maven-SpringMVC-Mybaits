@@ -11,52 +11,8 @@
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
-
-	<bean id="productManager" class="cn.springmvc.service.impl.SimpleProductManager">
-		<property name="products">
-			<list>
-				<ref bean="product1" />
-				<ref bean="product2" />
-				<ref bean="product3" />
-			</list>
-		</property>
-	</bean>
-
-	<bean id="product1" class="cn.springmvc.model.Product">
-		<property name="description" value="Lamp" />
-		<property name="price" value="5.75" />
-	</bean>
-
-	<bean id="product2" class="cn.springmvc.model.Product">
-		<property name="description" value="Table" />
-		<property name="price" value="75.25" />
-	</bean>
-
-	<bean id="product3" class="cn.springmvc.model.Product">
-		<property name="description" value="Chair" />
-		<property name="price" value="22.79" />
-	</bean>
-
-	<bean id="messageSource"
-		class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename" value="conf/messages" />
-	</bean>
-
-	<bean name="/hello.htm" class="cn.springmvc.controller.InventoryController">
-		<property name="productManager" ref="productManager" />
-	</bean>
-
-	<bean name="/priceincrease.htm" class="cn.springmvc.controller.PriceIncreaseFormController">
-		<property name="sessionForm" value="true" />
-		<property name="commandName" value="priceIncrease" />
-		<property name="commandClass" value="cn.springmvc.service.PriceIncrease" />
-		<property name="validator">
-			<bean class="cn.springmvc.service.PriceIncreaseValidator" />
-		</property>
-		<property name="formView" value="priceincrease" />
-		<property name="successView" value="hello.htm" />
-		<property name="productManager" ref="productManager" />
-	</bean>
+	<!-- 扫描controller（controller层注入） -->
+	<context:component-scan base-package="cn.springmvc.controller" />
 
 	<!-- 避免IE在ajax请求时，返回json出现下载 -->
 	<bean id="jacksonMessageConverter"
@@ -71,6 +27,5 @@
 	<!-- 对模型视图添加前后缀 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-		p:viewClass="org.springframework.web.servlet.view.JstlView" p:prefix="/WEB-INF/jsp/"
-		p:suffix=".jsp" />
+		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
 </beans>

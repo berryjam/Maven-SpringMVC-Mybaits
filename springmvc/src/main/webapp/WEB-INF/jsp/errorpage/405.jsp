@@ -4,9 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>没有权限访问所在资源</title>
 </head>
-<body>
-	<h1>欢迎你！！！</h1>
+<body>405
 </body>
 </html>
