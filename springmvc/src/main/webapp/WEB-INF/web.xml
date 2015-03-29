@@ -1,94 +1,118 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-	id="WebApp_ID" version="2.5">
-	<display-name>Archetype Created Web Application</display-name>
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         id="WebApp_ID" version="2.5">
 
-	<!-- - Location of the XML file that defines the root application context. 
-		- Applied by ContextLoaderListener. -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring/spring.xml
-		</param-value>
-	</context-param>
-	<!-- 设计路径变量值 -->
-	<context-param>
-		<param-name>webAppRootKey</param-name>
-		<param-value>springmvc.root</param-value>
-	</context-param>
+    <display-name>Spring PetClinic</display-name>
+    <description>Spring PetClinic sample application</description>
+    
+    <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>default</param-value>
+    </context-param>
 
+   <!-- Default profile is "jpa" (see business-config.xml for more details). 
+   When using Spring JDBC, uncomment the following: -->
+   <!--  <context-param>
+        <param-name>spring.profiles.active</param-name>
+        <param-value>jdbc</param-value>
+    </context-param>  -->
 
-	<!-- Spring字符集过滤器 -->
-	<filter>
-		<filter-name>SpringEncodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>SpringEncodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+   <!--  When using Spring Data JPA, uncomment the following: -->
+   <!--
+   	<context-param>
+        <param-name>spring.profiles.active</param-name>
+		<param-value>spring-data-jpa</param-value>
+    </context-param>
+	-->
 
-	<!-- 日志记录 -->
-	<context-param>
-		<!-- 日志配置文件路径 -->
-		<param-name>log4jConfigLocation</param-name>
-		<param-value>classpath:spring/log4j.properties</param-value>
-	</context-param>
-	<context-param>
-		<!-- 日志页面的刷新间隔 -->
-		<param-name>log4jRefreshInterval</param-name>
-		<param-value>6000</param-value>
-	</context-param>
-	<listener>
-		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-	</listener>
+    <!--
+		- Location of the XML file that defines the root application context.
+		- Applied by ContextLoaderListener.
+	-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/business-config.xml, classpath:spring/tools-config.xml</param-value>
+    </context-param>
 
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
-	<!-- springMVC核心配置 -->
-	<servlet>
-		<servlet-name>spring</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring/spring-mvc.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>spring</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+    <!--
+- Servlet that dispatches request to registered handlers (Controller implementations).
+-->
+    <servlet>
+        <servlet-name>petclinic</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/mvc-core-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
-	<welcome-file-list>
-		<welcome-file>/WEB-INF/jsp/index.jsp</welcome-file>
-	</welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>petclinic</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 
-	<!-- 错误跳转页面 -->
-	<error-page>
-		<!-- 路径不正确 -->
-		<error-code>404</error-code>
-		<location>/WEB-INF/jsp/errorpage/404.jsp</location>
-	</error-page>
-	<error-page>
-		<!-- 没有访问权限，访问被禁止 -->
-		<error-code>405</error-code>
-		<location>/WEB-INF/jsp/errorpage/405.jsp</location>
-	</error-page>
-	<error-page>
-		<!-- 内部错误 -->
-		<error-code>500</error-code>
-		<location>/WEB-INF/jsp/errorpage/500.jsp</location>
-	</error-page>
+    <!-- Dandelion-Datatables servlet definition -->
+    <servlet>
+        <servlet-name>datatablesController</servlet-name>
+        <servlet-class>com.github.dandelion.datatables.extras.servlet2.servlet.DatatablesServlet</servlet-class>
+    </servlet>
+   
+    <!-- Dandelion-Datatables servlet mapping -->
+    <servlet-mapping>
+        <servlet-name>datatablesController</servlet-name>
+        <url-pattern>/datatablesController/*</url-pattern>
+    </servlet-mapping>
+
+    <!-- used so we can use forms of method type 'PUT' and 'DELETE' (such as in the Pet form)
+see here: http://static.springsource.org/spring/docs/current/spring-framework-reference/html/view.html#rest-method-conversion
+-->
+    <filter>
+        <filter-name>httpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>httpMethodFilter</filter-name>
+        <servlet-name>petclinic</servlet-name>
+    </filter-mapping>
+    
+    <!-- used to provide the ability to enter Chinese characters inside the Owner Form -->    
+    <filter>
+	    <filter-name>encodingFilter</filter-name>
+	    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	    <init-param>
+	        <param-name>encoding</param-name>
+	        <param-value>UTF-8</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>forceEncoding</param-name>
+	        <param-value>true</param-value>
+	    </init-param>
+	 </filter>
+	
+	 <filter-mapping>
+	    <filter-name>encodingFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	 </filter-mapping>
+ 
+     <!-- Dandelion-Datatables filter definition -->
+    <filter>
+        <filter-name>datatablesFilter</filter-name>
+        <filter-class>com.github.dandelion.datatables.extras.servlet2.filter.DatatablesFilter</filter-class>
+    </filter>
+    
+    <!-- Dandelion-Datatables filter mapping -->
+    <filter-mapping>
+        <filter-name>datatablesFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 </web-app>
